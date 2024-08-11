@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/header'
 import { openSans } from '@/utils/fonts'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
   title: 'RecipeLand',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className={openSans.className}>
         <Header />
         {children}
+        <Footer/>
       </body>
     </html>
   )
