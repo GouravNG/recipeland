@@ -4,7 +4,7 @@ import Image from 'next/image'
 const RecipeContainer = ({ width = 210 }) => {
   return (
     <>
-      <div>
+      <div className='flex-shrink-0 shadow-md'>
         <div className='relative flex items-end '>
           <Image src={'/cheese.jpg'} alt='cheese' width={width} height={50} />
           <p className='absolute p-1 bg-slate-100 m-1 font-bold text-sm rounded-sm'>Desert</p>
