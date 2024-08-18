@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/header'
-import { openSans } from '@/utils/fonts'
+import { quickSand } from '@/utils/fonts'
 import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
   title: 'RecipeLand',
-  description: 'One stopp to all ur recipe needs!!',
+  description: 'One stop to all ur recipe needs!!',
 }
 
 export default function RootLayout({
@@ -16,10 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={openSans.className}>
+      <body className={quickSand.className}>
         <Header />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   )

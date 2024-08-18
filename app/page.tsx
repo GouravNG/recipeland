@@ -6,7 +6,7 @@ import Scroll from '@/components/homepageBlocks/scrolls'
 export default function Home() {
   return (
     <>
-      <div className='flex flex-col'>
+      <div className='flex flex-col p-1 m-1'>
         <ItemAndFeatured />
         <Scroll />
         <CuratedForYou />

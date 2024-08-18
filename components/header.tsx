@@ -1,32 +1,21 @@
-import { Button } from './ui/button'
 import merchData from '@/dummyData/merch'
 import DropDown from './dropdown.component'
-import { SearchIcon } from 'lucide-react'
-import { DMS } from '@/utils/fonts'
+import HeaderButtons from './ui/headerButtons.component'
+import Logo from './ui/logo.component'
+import { headerButtons, logo } from '@/website.properties'
+import SearchBar from './ui/searchBar.component'
 
 const Header = () => {
   return (
     <>
       <header className='shadow-md'>
-        <div className='flex items-center justify-end'>
-          <Button variant={'ghost'}>SIGN UP</Button>
-          <Button variant={'ghost'}>NEWSLETTER </Button>
-        </div>
+        <HeaderButtons headerButtons={headerButtons} varient={'ghost'} />
         <div className='flex items-center justify-center p-2'>
-          <h1 className={`${DMS.className} text-red-600 text-6xl`}>Recipe Land</h1>
+          <Logo logoText={logo} />
         </div>
         <div className='flex items-center justify-evenly'>
           <DropDown dropDonwData={merchData} />
-          <div className='flex items-center gap-2 border-[1px] border-slate-900 p-2'>
-            <SearchIcon />
-            <input
-              type='text'
-              name='search'
-              id='search'
-              placeholder={'Search your recipe...'}
-              className='outline-none p-1 '
-            />
-          </div>
+          <SearchBar />
         </div>
       </header>
     </>
