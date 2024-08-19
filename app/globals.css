@@ -71,3 +71,7 @@
 .underLineDecoration {
   @apply underline decoration-yellow-300 decoration-4 underline-offset-4 hover:decoration-red-600;
 }
+
+.subHeadingStyle {
+  @apply text-3xl;
+}
