@@ -17,7 +17,7 @@ function Footer() {
             <li>
               {footerLinks.map((i, index) => {
                 return (
-                  <Link className='text-gray-700 transition hover:text-gray-700/75 p-4' href={i.link}>
+                  <Link className='text-gray-700 transition hover:text-gray-700/75 p-4' href={i.link} key={index}>
                     {i.name}
                   </Link>
                 )
