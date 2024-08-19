@@ -34,4 +34,13 @@ export const footerLinks: ButtonType[] = [
   },
 ]
 
-// export const searchBarAlternativeText: string[] = ['Pasta', 'Pizza', 'chicken tikka masal']
+export const dailyQuotes: string[] = [
+  '“Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough.” — Guy Fieri',
+  '“Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough.” — Guy Fieri',
+  '“Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough.” — Guy Fieri',
+]
+
+export const BannerImageLink_HomePage: { imgLink: string; altText: string } = {
+  imgLink: '/banner2.jpg',
+  altText: '3 womens making food',
+}
