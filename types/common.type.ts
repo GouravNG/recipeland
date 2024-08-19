@@ -1,4 +1,4 @@
-type MerchData = {
+export type MerchData = {
   recipeHierarchy: RecipeCategory[]
 }
 

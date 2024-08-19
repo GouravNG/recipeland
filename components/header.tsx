@@ -1,4 +1,3 @@
-import merchData from '@/dummyData/merch'
 import DropDown from './dropdown.component'
 import HeaderButtons from './ui/headerButtons.component'
 import Logo from './ui/logo.component'
@@ -14,7 +13,7 @@ const Header = () => {
           <Logo logoText={logo} />
         </div>
         <div className='flex items-center justify-evenly'>
-          <DropDown dropDonwData={merchData} />
+          <DropDown/>
           <SearchBar />
         </div>
       </header>
