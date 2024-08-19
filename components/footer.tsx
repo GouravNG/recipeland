@@ -1,5 +1,7 @@
-import { DMS } from '@/utils/fonts'
 import React from 'react'
+import Logo from './ui/logo.component'
+import { footerLinks, footerText, logo } from '@/website.properties'
+import Link from 'next/link'
 
 function Footer() {
   return (
@@ -7,46 +9,19 @@ function Footer() {
       <footer className='bg-yellow-200'>
         <div className='mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8'>
           <div className='flex items-center justify-center p-2'>
-            <h1 className={`${DMS.className} text-red-600 text-6xl`}>Recipe Land</h1>
+            <Logo logoText={logo} />
           </div>
-          <p className='mx-auto mt-6 max-w-md text-center leading-relaxed text-slate-700-500'>
-            Best recipes to your needs by our remarkable chefs!!!
-          </p>
+          <p className='mx-auto mt-6 max-w-md text-center leading-relaxed text-slate-700-500'>{footerText}</p>
 
           <ul className='mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12'>
             <li>
-              <a className='text-gray-700 transition hover:text-gray-700/75' href='#'>
-                {' '}
-                About{' '}
-              </a>
-            </li>
-
-            <li>
-              <a className='text-gray-700 transition hover:text-gray-700/75' href='#'>
-                {' '}
-                Careers{' '}
-              </a>
-            </li>
-
-            <li>
-              <a className='text-gray-700 transition hover:text-gray-700/75' href='#'>
-                {' '}
-                History{' '}
-              </a>
-            </li>
-
-            <li>
-              <a className='text-gray-700 transition hover:text-gray-700/75' href='#'>
-                {' '}
-                Services{' '}
-              </a>
-            </li>
-
-            <li>
-              <a className='text-gray-700 transition hover:text-gray-700/75' href='#'>
-                {' '}
-                Blog{' '}
-              </a>
+              {footerLinks.map((i, index) => {
+                return (
+                  <Link className='text-gray-700 transition hover:text-gray-700/75 p-4' href={i.link}>
+                    {i.name}
+                  </Link>
+                )
+              })}
             </li>
           </ul>
 
