@@ -75,3 +75,7 @@
 .subHeadingStyle {
   @apply text-3xl;
 }
+
+.hoverAnimation {
+  @apply hover:scale-105 transition-all ease-linear duration-75;
+}
