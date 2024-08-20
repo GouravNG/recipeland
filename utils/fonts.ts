@@ -1,13 +1,6 @@
-import { DM_Serif_Display } from 'next/font/google'
-import { IBM_Plex_Serif } from 'next/font/google'
-import { Inter } from 'next/font/google'
-import { Open_Sans } from 'next/font/google'
-import { Grey_Qo } from 'next/font/google'
-import { Quicksand } from 'next/font/google'
+import { DM_Serif_Display, IBM_Plex_Serif, Quicksand, Sofia } from 'next/font/google'
 
 export const IBM_Flex = IBM_Plex_Serif({ weight: '400', subsets: ['latin'] })
 export const DMS = DM_Serif_Display({ weight: '400', subsets: ['latin'] })
-export const inter = Inter({ subsets: ['latin'] })
-export const openSans = Open_Sans({ subsets: ['latin'] })
-export const handwriting = Grey_Qo({ subsets: ['latin'], weight: '400' })
-export const quickSand=Quicksand({subsets:['latin']})
+export const quickSand = Quicksand({ subsets: ['latin'] })
+export const sofia = Sofia({ subsets: ['latin'], weight: '400' })

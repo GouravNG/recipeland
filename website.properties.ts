@@ -35,9 +35,9 @@ export const footerLinks: ButtonType[] = [
 ]
 
 export const dailyQuotes: string[] = [
-  '“Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough.” — Guy Fieri',
-  '“Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough.” — Guy Fieri',
-  '“Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough.” — Guy Fieri',
+  'Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough. — Guy Fieri',
+  'Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough. — Guy Fieri',
+  'Cooking is like snow skiing: If you don’t fall at least 10 times, then you’re not skiing hard enough. — Guy Fieri',
 ]
 
 export const BannerImageLink_HomePage: { imgLink: string; altText: string } = {
