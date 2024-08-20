@@ -15,7 +15,6 @@ const FavouriteComponent = () => {
           strokeWidth={'.5px'}
           size={'30px'}
           onClick={(e) => {
-            e.stopPropagation() // not working need to fix
             handleClick()
           }}
         />
