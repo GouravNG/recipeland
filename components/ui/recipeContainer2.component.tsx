@@ -12,7 +12,7 @@ const RecipeContainer2: React.FC<RecipeContainerProps> = ({ recipeInfo }) => {
   const onClickLink = `recipe/${recipeInfo?.recipeName}`
   return (
     <>
-      <div className='flex flex-col p-1 my-4 bg-gray-50 shadow-md hoverAnimation hover:shadow-xl'>
+      <div className='flex flex-col p-1 my-4 w-72 bg-gray-50 shadow-md hoverAnimation hover:shadow-xl'>
         <div className='relative flex justify-end w-72 h-60'>
           <Link href={onClickLink}>
             <Image
@@ -27,8 +27,8 @@ const RecipeContainer2: React.FC<RecipeContainerProps> = ({ recipeInfo }) => {
         </div>
         <div className='flex flex-col items-start gap-2 p-2'>
           <p className='font-thin italic'>{recipeInfo?.recipeCategory}</p>
-          <Link href={onClickLink}>
-            <p className='font-serif text-xl '>{recipeInfo?.recipeName}</p>
+          <Link href={onClickLink} className='w-full'>
+            <p className='font-serif text-xl truncate'>{recipeInfo?.recipeName}</p>
           </Link>
           <p className='flex place-items-center gap-1'>
             {recipeInfo?.recipeRating}

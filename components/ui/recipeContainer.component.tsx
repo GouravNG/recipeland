@@ -24,7 +24,7 @@ const RecipeContainer: React.FC<RecipeContainerProps> = ({ width = 240, recipeIn
         </div>
         <div className='flex flex-col p-1.5 bg-white '>
           <Link href={onClickLink}>
-            <p className='font-serif text-lg'>{recipeInfo?.recipeName}</p>
+            <p className='font-serif text-lg truncate'>{recipeInfo?.recipeName}</p>
           </Link>
           <p className='flex place-items-center gap-1'>
             {recipeInfo?.recipeRating}
