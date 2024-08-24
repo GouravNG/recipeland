@@ -2,29 +2,29 @@ import RDPHeader from '@/components/RDPBlocks/headerBlock'
 import Ingredients from '@/components/RDPBlocks/ingredients'
 import PreviewBlock from '@/components/RDPBlocks/preBlock'
 import ReviewBlock from '@/components/RDPBlocks/reviewBlock'
-import StepsOfRecipe from '@/components/RDPBlocks/stepsOfRecipe'
 import UtilityComponent from '@/components/RDPBlocks/utilityComponent'
+import RecipeSteps from '@/components/recipeSteps.component'
+import { getRecipeDetails } from '@/dummyData/getRecipeDetails'
+import { RecipeDetails } from '@/types/common.type'
 
 const RDP = () => {
+  const RDPInfo: RecipeDetails = getRecipeDetails[2]
   return (
     <>
-      <RDPHeader />
-      <div className='flex'>
-        <div className='flex flex-col'>
-          <PreviewBlock />
-          <Ingredients />
-          <div className='p-2'>
-            <h2 className='bg-black text-white text-2xl p-1 py-2'>Recipe Steps</h2>
+      <div>
+        <RDPHeader RDPInfo={RDPInfo} />
+        <div className='flex'>
+          <div className='flex flex-col mx-10 w-3/4'>
+            <PreviewBlock previewText={RDPInfo?.recipeDescription} />
+            <Ingredients ingredinets={RDPInfo?.recipeIngredients} />
+            <RecipeSteps recipeSteps={RDPInfo?.recipeMethod} />
           </div>
-          <StepsOfRecipe />
-          <StepsOfRecipe />
-          <StepsOfRecipe />
-          <StepsOfRecipe />
-          <StepsOfRecipe />
-          <ReviewBlock />
+          <div className='p-2 w-1/4 flex flex-col border-l-4 border-slate-400 items-center justify-start'>
+            <UtilityComponent />
+          </div>
         </div>
-        <div>
-          <UtilityComponent />
+        <div className='p-2 mx-10'>
+          <ReviewBlock />
         </div>
       </div>
     </>

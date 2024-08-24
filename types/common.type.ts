@@ -20,3 +20,13 @@ export type RecipeInfo = {
   recipeDescription: string
   recipeRating: number
 }
+
+export type RecipeDetails = {
+  recipeName: string
+  recipeMainImage: string
+  recipeCategory: string
+  recipeDescription: string
+  recipeIngredients: string[]
+  recipeMethod: string[]
+  recipeSubImages: string[]
+}
