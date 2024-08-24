@@ -1,13 +1,21 @@
-const Ingredients = () => {
+import Typography from '../ui/typography.component'
+
+type IngredientsProps = {
+  ingredinets: string[]
+}
+const Ingredients: React.FC<IngredientsProps> = ({ ingredinets }) => {
   return (
     <>
-      <div className=' p-2'>
-        <h2 className='bg-black text-white text-2xl p-1 py-2'>Ingredients</h2>
+      <div className='p-2'>
+        <Typography varient='h1'>Ingredients</Typography>
         <ul className='text-xl px-6'>
-          <li>apple</li>
-          <li>Banana</li>
-          <li>Canbera</li>
-          <li>dogog</li>
+          {ingredinets?.map((i, index) => {
+            return (
+              <li key={index} className='list-disc text-lg line py-1'>
+                {i}
+              </li>
+            )
+          })}
         </ul>
       </div>
     </>

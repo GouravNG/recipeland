@@ -1,10 +1,12 @@
+import { IBM_Flex } from '@/utils/fonts'
 import { Star, StarHalfIcon, UserIcon } from 'lucide-react'
+import GetMeStars from '../ui/getMeStarts.component'
 
 const ReviewBlock = () => {
   return (
     <>
       <div className='flex flex-col gap-2'>
-        <h1 className='bg-black text-white text-2xl p-1 py-2'>Reviews</h1>
+        <h1 className={`${IBM_Flex.className} subHeadingStyle underLineDecoration py-3`}>Reviews</h1>
         <div className='flex flex-col items-start p-4 gap-3 shadow-xl m-2 w-96'>
           <div className='flex'>
             <div>
@@ -13,15 +15,7 @@ const ReviewBlock = () => {
             <div>User name</div>
           </div>
           <div className='flex gap-2'>
-            <h2>4.6</h2>
-            <Star fill='true' />
-            <Star fill='true' />
-            <Star fill='true' />
-            <Star fill='true' />
-            <StarHalfIcon fill='true' />
-            <div>
-              <p>(14)</p>
-            </div>
+            <GetMeStars stars={5} />
           </div>
           <div>
             <p className='w-90'>
