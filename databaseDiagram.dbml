@@ -1,0 +1,71 @@
+Table User {
+  id UUID [pk, unique, not null]
+  username String [not null, unique]
+  email String [not null, unique]
+  password String [not null]
+  created_at Timestamp [not null, default: `now()`]
+  updated_at Timestamp [not null, default: `now()`]
+}
+
+Table Recipe {
+  id UUID [pk, unique, not null]
+  title String [not null]
+  description Text
+  servings Integer [not null]
+  prep_time Integer [not null] // in minutes
+  cook_time Integer [not null] // in minutes
+  main_img String [not null] // URL or path to the main image
+  main_img_alt String // Alt text for the main image
+  created_at Timestamp [not null, default: `now()`]
+  updated_at Timestamp [not null, default: `now()`]
+  user_id UUID [not null, ref: > User.id]
+  category_id UUID [not null, ref: > Category.id] // References a category (can be main or sub)
+}
+
+Table Category {
+  id UUID [pk, unique, not null]
+  name String [not null, unique]
+  description Text
+  parent_id UUID [ref: > Category.id] // Self-referential foreign key for subcategories
+  created_at Timestamp [not null, default: `now()`]
+  updated_at Timestamp [not null, default: `now()`]
+}
+
+Table Ingredient {
+  id UUID [pk, unique, not null]
+  name String [not null]
+  quantity String [not null] // e.g., "1 cup", "2 tbsp"
+  recipe_id UUID [not null, ref: > Recipe.id]
+}
+
+Table RecipeImage {
+  id UUID [pk, unique, not null]
+  image_url String [not null] // URL or path to the image
+  alt_text String // Alt text for the image
+  recipe_id UUID [not null, ref: > Recipe.id]
+}
+
+Table Instruction {
+  id UUID [pk, unique, not null]
+  step_number Integer [not null]
+  description Text [not null]
+  image_id UUID [ref: > RecipeImage.id] // Optional image for this step
+  recipe_id UUID [not null, ref: > Recipe.id]
+}
+
+Table Like {
+  id UUID [pk, unique, not null]
+  user_id UUID [not null, ref: > User.id]
+  recipe_id UUID [not null, ref: > Recipe.id]
+  created_at Timestamp [not null, default: `now()`]
+}
+
+Table Review {
+  id UUID [pk, unique, not null]
+  user_id UUID [not null, ref: > User.id]
+  recipe_id UUID [not null, ref: > Recipe.id]
+  rating Integer [not null] // Star rating out of 5
+  review_text Text // Actual review text
+  created_at Timestamp [not null, default: `now()`]
+  updated_at Timestamp [not null, default: `now()`]
+}
