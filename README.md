@@ -15,5 +15,5 @@
 ![image](https://github.com/user-attachments/assets/d894f90a-2a6a-4b44-83eb-381789f7dc7e)
 
 Databse Relation diagram
-![alt text](image.png)
-Refer the DBML file for the full details <!-- use https://dbdiagram.io/d to view the DBML>
+![image](https://github.com/user-attachments/assets/13789542-e501-403b-944d-06c19bba3af4)
+Refer the DBML file for the full details 
