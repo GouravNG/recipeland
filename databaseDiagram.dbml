@@ -11,7 +11,7 @@ Table Recipe {
   id UUID [pk, unique, not null]
   title String [not null]
   description Text
-  servings Integer [not null]
+  servings Integer [not null] 
   prep_time Integer [not null] // in minutes
   cook_time Integer [not null] // in minutes
   main_img String [not null] // URL or path to the main image
