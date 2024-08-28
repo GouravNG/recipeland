@@ -1,40 +1,35 @@
 'use server'
 
 import pool from '@/db/createPool.db'
-import { PingResponseType } from '@/types/actions.types'
+import { createTableQuery } from '@/db/createTable.query'
+import { createTimeout } from '@/utils/useTimeout'
 
-export const pingDatabase = async (): Promise<PingResponseType> => {
+export const pingDatabase = async () => {
   try {
     const res = await pool.query('SELECT 1')
-    if (res.rowCount && res?.rowCount > 0) {
-      return {
-        responseCode: 200,
-        message: 'Successfully connected to db',
-      }
-    }
+    if (res.rowCount && res?.rowCount > 0) return
   } catch (error) {
-    return {
-      responseCode: 500,
-      message: 'unable to connect to db',
-    }
+    if (error instanceof Error) throw new Error('Database Connection Failed,: ' + error.message)
+    throw new Error('Random unknow Error')
   }
 }
 
 export const runQuery = async (formData: FormData) => {
-  const myQuery = formData.get('myQuery') as string
-  console.log(myQuery)
   try {
+    await createTimeout(pingDatabase, +process.env.TIMEOUT_MS!)
+    const myQuery = formData.get('myQuery') as string
+    console.log('Query is', myQuery)
     const queryResponse = await pool.query(myQuery)
-    console.log(queryResponse)
-    return {
-      responseCode: 201,
-      message: 'Successfully created the table',
-    }
+    console.log('Query Response is ', JSON.stringify(queryResponse.rows))
   } catch (error) {
-    console.log(error)
-    return {
-      responseCode: 500,
-      message: 'unable to connect to db',
-    }
+    if (error instanceof Error) console.log(error.message)
+    else console.log('Unknown Error Occurred')
   }
+}
+
+export const createTables = () => {
+  createTableQuery.map(async (query) => {
+    const queryRespose = await pool.query(query)
+    console.log(queryRespose.command)
+  })
 }

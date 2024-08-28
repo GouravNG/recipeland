@@ -16,9 +16,6 @@ export default function RootLayout({
         </div>
         <div className='flex w-full gap-2 h-96'>
           <div className='flex flex-col w-1/4 bg-blue-300 items-start px-3'>
-            <Link href={'/admin/ping'} className='p-4 font-bold text-center'>
-              Ping
-            </Link>
             <Link href={'/admin/run'} className='p-4 font-bold text-center'>
               Run Query
             </Link>
