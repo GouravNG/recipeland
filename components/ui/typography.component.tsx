@@ -3,7 +3,7 @@ import { IBM_Flex } from '@/utils/fonts'
 type TypographyProps = {
   varient: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   children: string
-  style?: string[]
+  style?: string
 }
 const Typography: React.FC<TypographyProps> = ({
   children,

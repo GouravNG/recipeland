@@ -1,0 +1,1 @@
+// export type ErrorResponseType = { responseCode: number; message: string }
