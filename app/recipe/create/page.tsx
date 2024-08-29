@@ -43,11 +43,12 @@ const CreateRecipeForm = () => {
       <div className='w-full flex flex-col items-center'>
         <Typography varient='h1'>Post Your Tasty Recipe</Typography>
         <div className='flex flex-col items-start justify-center w-full px-5'>
-          <form action=''>
+          <form action='' className='w-full px-20'>
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_PRIMARY_VIEW' })
               }}
+              className='w-full'
             >
               <Typography varient='h3' style='font-bold'>
                 Basic info
@@ -79,6 +80,7 @@ const CreateRecipeForm = () => {
               onClick={() => {
                 dispatch({ type: 'TOGGLE_MISC_VIEW' })
               }}
+              className='w-full'
             >
               <Typography varient='h3' style='font-bold'>
                 Other info
@@ -87,7 +89,7 @@ const CreateRecipeForm = () => {
             {state.isMiscView && <Misc />}
           </form>
         </div>
-        <div className='p-1 m-1 '>
+        <div className='p-1 m-1'>
           <Button variant={'default'}> Submit Your magical Recipe</Button>
         </div>
       </div>
