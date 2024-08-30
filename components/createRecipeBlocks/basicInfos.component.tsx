@@ -2,7 +2,7 @@ import { FolderPlus, PlusSquare } from 'lucide-react'
 import { Button } from '../ui/button'
 import OptionsDropDown from '../ui/optionDropdown.component'
 
-const BasicInfo = () => {
+const BasicInfo = ({ children }: { children: JSX.Element }) => {
   return (
     <div className='w-full flex gap-1 p-2 m-1 bg-yellow-200 shadow-md'>
       <div className='w-1/3 flex flex-col gap-1 '>
@@ -54,7 +54,7 @@ const BasicInfo = () => {
               <p>Add more recipe images</p>
             </label>
           </Button>
-          <Button>Next</Button>
+          {children}
         </div>
       </div>
     </div>

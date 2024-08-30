@@ -54,8 +54,13 @@ const CreateRecipeForm = () => {
                 Basic info
               </Typography>
             </div>
-            {state.isPrimaryInfoView && <BasicInfo />}
-
+            {state.isPrimaryInfoView && (
+              <BasicInfo>
+                <NavButton buttonNumber={1} dispatch={dispatch}>
+                  Next
+                </NavButton>
+              </BasicInfo>
+            )}
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_INGREDIENTS_VIEW' })
@@ -94,6 +99,45 @@ const CreateRecipeForm = () => {
         </div>
       </div>
     </>
+  )
+}
+
+const NavButton = ({
+  buttonNumber,
+  children,
+  dispatch,
+}: {
+  buttonNumber: number
+  children: string
+  dispatch: React.Dispatch<{ type: string }>
+}) => {
+  const handleClick = (i: number) => {
+    switch (i) {
+      case 1:
+        dispatch({ type: 'TOGGLE_PRIMARY_VIEW' })
+        dispatch({ type: 'TOGGLE_INGREDIENTS_VIEW' })
+        break
+      case 2:
+        dispatch({ type: 'TOGGLE_INGREDIENTS_VIEW' })
+        dispatch({ type: 'TOGGLE_INSTRUCTION_VIEW' })
+        break
+      case 3:
+        dispatch({ type: 'TOGGLE_INSTRUCTION_VIEW' })
+        dispatch({ type: 'TOGGLE_MISC_VIEW' })
+        break
+      case 4:
+        dispatch({ type: 'TOGGLE_MISC_VIEW' })
+        break
+    }
+  }
+  return (
+    <Button
+      onClick={(e) => {
+        handleClick(buttonNumber)
+      }}
+    >
+      {children}
+    </Button>
   )
 }
 export default CreateRecipeForm
