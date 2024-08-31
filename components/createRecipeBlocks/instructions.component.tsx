@@ -15,8 +15,8 @@ const Instructions = () => {
                 <input
                   type='text'
                   className='bg-yellow-50 w-11/12 p-1 outline-none border-b-2 border-black'
-                  name={'Step' + index}
-                  id={'Step' + index}
+                  name={'Step_' + index}
+                  id={'Step_' + index}
                 />
                 <Button
                   className='w-1/12'
