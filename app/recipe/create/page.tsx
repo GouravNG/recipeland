@@ -5,6 +5,7 @@ import Instructions from '@/components/createRecipeBlocks/instructions.component
 import Misc from '@/components/createRecipeBlocks/misc.component'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography.component'
+import { createRecipe } from '@/lib/actions/admin.actions'
 import { useReducer } from 'react'
 
 type ToggleViewTypes = {
@@ -43,7 +44,7 @@ const CreateRecipeForm = () => {
       <div className='w-full flex flex-col items-center'>
         <Typography varient='h1'>Post Your Tasty Recipe</Typography>
         <div className='flex flex-col items-start justify-center w-full px-5'>
-          <form action='' className='w-full px-20'>
+          <form action={createRecipe} className='w-full px-20'>
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_PRIMARY_VIEW' })
@@ -70,7 +71,13 @@ const CreateRecipeForm = () => {
                 Ingredients
               </Typography>
             </div>
-            {state.isIngredientsView && <Ingredients />}
+            {state.isIngredientsView && (
+              <Ingredients>
+                <NavButton buttonNumber={2} dispatch={dispatch}>
+                  Next
+                </NavButton>
+              </Ingredients>
+            )}
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_INSTRUCTION_VIEW' })
@@ -92,10 +99,12 @@ const CreateRecipeForm = () => {
               </Typography>
             </div>
             {state.isMiscView && <Misc />}
+            <div className='w-full flex justify-center p-1 m-1'>
+              <Button variant={'default'} type='submit'>
+                Submit Your magical Recipe
+              </Button>
+            </div>
           </form>
-        </div>
-        <div className='p-1 m-1'>
-          <Button variant={'default'}> Submit Your magical Recipe</Button>
         </div>
       </div>
     </>

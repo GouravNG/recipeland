@@ -33,3 +33,7 @@ export const createTables = () => {
     console.log(queryRespose.command)
   })
 }
+
+export const createRecipe = async (formData: FormData) => {
+  console.log(formData)
+}
