@@ -6,6 +6,7 @@ import Misc from '@/components/createRecipeBlocks/misc.component'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography.component'
 import { createRecipe } from '@/lib/actions/admin.actions'
+import { ChevronDown } from 'lucide-react'
 import { useReducer } from 'react'
 
 type ToggleViewTypes = {
@@ -51,54 +52,86 @@ const CreateRecipeForm = () => {
               }}
               className='w-full'
             >
-              <Typography varient='h3' style='font-bold'>
-                Basic info
-              </Typography>
+              <div className='flex items-center w-fit justify-center'>
+                <Typography varient='h3' style='font-bold'>
+                  1.Basic info
+                </Typography>
+                <ChevronDown
+                  size={'20px'}
+                  className={`${state.isPrimaryInfoView ? '' : 'rotate-90'} transition-all ease-in-out duration-100 `}
+                />
+              </div>
             </div>
-            {state.isPrimaryInfoView && (
+            <div className={`${state.isPrimaryInfoView ? '' : 'hidden'}`}>
               <BasicInfo>
                 <NavButton buttonNumber={1} dispatch={dispatch}>
-                  Next
+                  Next Section
                 </NavButton>
               </BasicInfo>
-            )}
+            </div>
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_INGREDIENTS_VIEW' })
               }}
             >
-              <Typography varient='h3' style='font-bold'>
-                Ingredients
-              </Typography>
+              <div className='flex items-center w-fit justify-center'>
+                <Typography varient='h3' style='font-bold'>
+                  2.Ingredients
+                </Typography>
+                <ChevronDown
+                  size={'20px'}
+                  className={`${state.isIngredientsView ? '' : 'rotate-90'} transition-all ease-in-out duration-100`}
+                />
+              </div>
             </div>
-            {state.isIngredientsView && (
+            <div className={`${state.isIngredientsView ? '' : 'hidden'} `}>
               <Ingredients>
                 <NavButton buttonNumber={2} dispatch={dispatch}>
-                  Next
+                  Next Section
                 </NavButton>
               </Ingredients>
-            )}
+            </div>
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_INSTRUCTION_VIEW' })
               }}
             >
-              <Typography varient='h3' style='font-bold'>
-                Instructions
-              </Typography>
+              <div className='flex items-center w-fit justify-center'>
+                <Typography varient='h3' style='font-bold'>
+                  3.Instructions
+                </Typography>
+                <ChevronDown
+                  size={'20px'}
+                  className={`${state.isInstructionsView ? '' : 'rotate-90'} transition-all ease-in-out duration-100`}
+                />
+              </div>
             </div>
-            {state.isInstructionsView && <Instructions />}
+            <div className={`${state.isInstructionsView ? '' : 'hidden'} `}>
+              <Instructions>
+                <NavButton buttonNumber={3} dispatch={dispatch}>
+                  Next Section
+                </NavButton>
+              </Instructions>
+            </div>
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_MISC_VIEW' })
               }}
               className='w-full'
             >
-              <Typography varient='h3' style='font-bold'>
-                Other info
-              </Typography>
+              <div className='flex items-center w-fit justify-center'>
+                <Typography varient='h3' style='font-bold'>
+                  4.Other info
+                </Typography>
+                <ChevronDown
+                  size={'20px'}
+                  className={`${state.isMiscView ? '' : 'rotate-90'} transition-all ease-in-out duration-100 mt-1`}
+                />
+              </div>
             </div>
-            {state.isMiscView && <Misc />}
+            <div className={`${state.isMiscView ? '' : 'hidden'} `}>
+              <Misc />
+            </div>
             <div className='w-full flex justify-center p-1 m-1'>
               <Button variant={'default'} type='submit'>
                 Submit Your magical Recipe
@@ -142,6 +175,7 @@ const NavButton = ({
   return (
     <Button
       onClick={(e) => {
+        e.preventDefault()
         handleClick(buttonNumber)
       }}
     >

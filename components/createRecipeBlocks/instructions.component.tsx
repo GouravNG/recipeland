@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Button } from '../ui/button'
 
-const Instructions = () => {
+const Instructions = ({ children }: { children: React.ReactNode }) => {
   const [step, setStep] = useState<number>(1)
   return (
-    <div className=' p-1 gap-1'>
+    <div className=' p-1'>
       <p className=' text-xl p-1'>Add Step</p>
       <ol className='bg-yellow-100 w-full flex flex-col gap-2 items-center justify-between p-1'>
         {Array.from({ length: step }).map((_, index) => {
@@ -41,6 +41,7 @@ const Instructions = () => {
           )
         })}
       </ol>
+      <div className='flex justify-end p-1'>{children}</div>
     </div>
   )
 }

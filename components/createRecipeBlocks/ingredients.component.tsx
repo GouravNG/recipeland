@@ -16,20 +16,19 @@ const Ingredients = ({ children }: { children: React.ReactNode }) => {
         <tbody className='pb-2 w-full'>
           {Array.from({ length: item }).map((_, index) => {
             return (
-              <tr className='w-full flex justify-around items-center'>
+              <tr className='w-full flex justify-around items-center' key={index}>
                 <td className='w-1/3'>
                   <input
                     type='text'
                     className='w-full outline-none pb-1 text-center'
                     id={'indgridientName_' + index}
                     name={'indgridientName_' + index}
-                    
                     placeholder='Enter ingredient'
                   />
                 </td>
                 <td className='w-1/3 flex justify-center items-center'>
                   <select className='p-1 mb-1 bg-white text-center' id='measurement' name='measurement'>
-                    <option >Tea Spoon</option>
+                    <option>Tea Spoon</option>
                     <option>TableSpoon</option>
                     <option>Pack</option>
                     <option>grams</option>
@@ -50,14 +49,14 @@ const Ingredients = ({ children }: { children: React.ReactNode }) => {
           })}
         </tbody>
       </table>
-      <div className='flex w-2/3 gap-2 justify-between px-10'>
+      <div className='flex w-2/3 gap-2 justify-end items-center px-10'>
         <Button
           onClick={(e) => {
             SetItem(item + 1)
             e.preventDefault()
           }}
         >
-          Add
+          Next Item
         </Button>
         {children}
       </div>

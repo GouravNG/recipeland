@@ -19,7 +19,7 @@ const BasicInfo = ({ children }: { children: JSX.Element }) => {
             type='text'
             name='mainImageAlt'
             id='mainImageAlt'
-            className='bg-gray-100 border-[2px] border-black w-fit'
+            className='bg-gray-100 border-[2px] border-black w-fit outline-none'
           />
         </div>
       </div>
@@ -30,7 +30,7 @@ const BasicInfo = ({ children }: { children: JSX.Element }) => {
             type='text'
             name='recipeName'
             id='recipeName'
-            className='bg-gray-100 border-[2px] border-black h-8 w-2/3'
+            className='bg-gray-100 border-[2px] border-black h-8 w-2/3 outline-none'
           />
         </div>
         <div className=' flex justify-around items-center p-2'>
@@ -44,7 +44,7 @@ const BasicInfo = ({ children }: { children: JSX.Element }) => {
               ]}
             />
           </div>
-          <div className=''>
+          <div>
             <OptionsDropDown
               id='subCategoryName'
               optionName={['Select sub category']}
@@ -59,7 +59,7 @@ const BasicInfo = ({ children }: { children: JSX.Element }) => {
             id='mainImgeAlt'
             cols={30}
             rows={10}
-            className='border-[2px] border-black'
+            className='border-[2px] border-black outline-none'
           ></textarea>
         </div>
         <div className='flex p-1 gap-2 w-full  items-center justify-around'>
