@@ -2,6 +2,16 @@
 
 import pool from '@/db/createPool.db'
 import { createTableQuery } from '@/db/createTable.query'
+import { getCategoryIdByName } from '@/db/dbFn/categoryFunctions'
+import { getImageURL } from '@/db/dbFn/imageFunctions'
+import {
+  createNewRecipe,
+  extractIngredientsInformation,
+  extractInstructionInformation,
+  extractRecifeInformation,
+} from '@/db/dbFn/recipeFunction'
+import { getUserInfo } from '@/db/dbFn/userFunctions'
+import { RecipeSet, UserSet } from '@/types/database.types'
 import { createTimeout } from '@/utils/useTimeout'
 
 export const pingDatabase = async () => {
@@ -34,6 +44,25 @@ export const createTables = () => {
   })
 }
 
-export const createRecipe = async (formData: FormData) => {
-  console.log(formData)
+export const addNewRecipeToDatabase = async (formData: FormData) => {
+  // Getting the username
+  const userSet: UserSet = getUserInfo(`userIdGoesHere`)
+
+  // Getting the category Informations
+  const categoryId = getCategoryIdByName(formData.get('subCategoryName')?.toString()!)
+
+  //Getting the image Informations
+  const imgUrl = getImageURL(`imgFromFormDataGoesHere`)
+
+  //getting the recipeinformations
+  const recipeSet = extractRecifeInformation(formData, imgUrl, categoryId)
+
+  //create the newRecipe and return the id of recipe created
+  createNewRecipe({ userInfo: userSet, recipeInfo: recipeSet })
+
+  //getting the ingredients informations
+  const ingredientsSet = extractIngredientsInformation(formData)
+
+  //getting the instruction Information
+  const instructionSet = extractInstructionInformation(formData)
 }

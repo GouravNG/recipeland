@@ -55,8 +55,8 @@ const BasicInfo = ({ children }: { children: JSX.Element }) => {
         <div className=' flex flex-col p-2'>
           <label htmlFor='mainImgeAlt'>A short description to your recipe :</label>
           <textarea
-            name='mainImgeAlt'
-            id='mainImgeAlt'
+            name='imgDesc'
+            id='imgDesc'
             cols={30}
             rows={10}
             className='border-[2px] border-black outline-none'

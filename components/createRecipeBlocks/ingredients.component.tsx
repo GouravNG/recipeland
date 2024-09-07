@@ -27,7 +27,11 @@ const Ingredients = ({ children }: { children: React.ReactNode }) => {
                   />
                 </td>
                 <td className='w-1/3 flex justify-center items-center'>
-                  <select className='p-1 mb-1 bg-white text-center' id='measurement' name='measurement'>
+                  <select
+                    className='p-1 mb-1 bg-white text-center'
+                    id={'measurement_' + index}
+                    name={'measurement_' + index}
+                  >
                     <option>Tea Spoon</option>
                     <option>TableSpoon</option>
                     <option>Pack</option>

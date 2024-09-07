@@ -5,7 +5,7 @@ import Instructions from '@/components/createRecipeBlocks/instructions.component
 import Misc from '@/components/createRecipeBlocks/misc.component'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography.component'
-import { createRecipe } from '@/lib/actions/admin.actions'
+import { addNewRecipeToDatabase } from '@/lib/actions/admin.actions'
 import { ChevronDown } from 'lucide-react'
 import { useReducer } from 'react'
 
@@ -45,7 +45,7 @@ const CreateRecipeForm = () => {
       <div className='w-full flex flex-col items-center'>
         <Typography varient='h1'>Post Your Tasty Recipe</Typography>
         <div className='flex flex-col items-start justify-center w-full px-5'>
-          <form action={createRecipe} className='w-full px-20'>
+          <form action={addNewRecipeToDatabase} className='w-full px-20'>
             <div
               onClick={() => {
                 dispatch({ type: 'TOGGLE_PRIMARY_VIEW' })
