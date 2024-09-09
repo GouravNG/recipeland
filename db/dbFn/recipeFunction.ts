@@ -60,6 +60,20 @@ export const extractInstructionInformation = (formData: FormData) => {
   return instructionSet
 }
 
+export const valueSetForIngredient = (
+  ingredientsSet: ReturnType<typeof extractIngredientsInformation>,
+  recipeId: string
+) => {
+  //entiry to the database
+  // ('Cream Cheese', '2 cups', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
+  // ('Sugar', '1 cup', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
+  const valueSet: string[] = []
+  ingredientsSet.map((i) => {
+    return valueSet.push(`('${i.ingredientName}','${i.quantity}${i.measurementName}','${recipeId}')`)
+  })
+  return valueSet.toString()
+}
+
 export const createNewRecipe = async ({ userInfo, recipeInfo }: { userInfo: UserSet; recipeInfo: RecipeSet }) => {
   try {
     const {
@@ -87,11 +101,15 @@ export const createNewRecipe = async ({ userInfo, recipeInfo }: { userInfo: User
         recipeCategory_Id
       )
     )
-    console.log(res)
+    return '3f2d10f7-d1a9-4fac-99f3-73b0888d3811'
   } catch (error) {
     if (error instanceof Error) {
       console.log('Probelm in creating the recipe' + error.message)
     }
   } finally {
   }
+}
+
+export const createIngredient = async (query: string) => {
+  await pool.query(query)
 }

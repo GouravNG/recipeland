@@ -1,17 +1,20 @@
 'use server'
 
 import pool from '@/db/createPool.db'
+import { ingridientsQueryBuilder } from '@/db/createRecipe.db'
 import { createTableQuery } from '@/db/createTable.query'
 import { getCategoryIdByName } from '@/db/dbFn/categoryFunctions'
 import { getImageURL } from '@/db/dbFn/imageFunctions'
 import {
+  createIngredient,
   createNewRecipe,
   extractIngredientsInformation,
   extractInstructionInformation,
   extractRecifeInformation,
+  valueSetForIngredient,
 } from '@/db/dbFn/recipeFunction'
 import { getUserInfo } from '@/db/dbFn/userFunctions'
-import { RecipeSet, UserSet } from '@/types/database.types'
+import { UserSet } from '@/types/database.types'
 import { createTimeout } from '@/utils/useTimeout'
 
 export const pingDatabase = async () => {
@@ -58,11 +61,18 @@ export const addNewRecipeToDatabase = async (formData: FormData) => {
   const recipeSet = extractRecifeInformation(formData, imgUrl, categoryId)
 
   //create the newRecipe and return the id of recipe created
-  createNewRecipe({ userInfo: userSet, recipeInfo: recipeSet })
+  const recipeId = await createNewRecipe({ userInfo: userSet, recipeInfo: recipeSet })
 
   //getting the ingredients informations
   const ingredientsSet = extractIngredientsInformation(formData)
 
+  //add te ingredients to the database
+  createIngredient(ingridientsQueryBuilder(valueSetForIngredient(ingredientsSet, recipeId!)))
   //getting the instruction Information
   const instructionSet = extractInstructionInformation(formData)
+
+  //add the instruction to the database
+  instructionSet.map((step) => {
+    //entry to the database
+  })
 }
