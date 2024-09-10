@@ -74,6 +74,19 @@ export const valueSetForIngredient = (
   return valueSet.toString()
 }
 
+export const valueSetForInstruction = (
+  instructionSet: ReturnType<typeof extractInstructionInformation>,
+  recipeId: string
+) => {
+  // (1, 'Preheat the oven to 350°F (175°C).', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
+  // (2, 'Mix the cream cheese and sugar until smooth.', (SELECT id FROM Recipe WHERE title = 'Cheesecake')
+  const valueSet: string[] = []
+  instructionSet.map((i) => {
+    return valueSet.push(`('${i.stepNo}','${i.stepDesc}','${recipeId}')`)
+  })
+  return valueSet.toString()
+}
+
 export const createNewRecipe = async ({ userInfo, recipeInfo }: { userInfo: UserSet; recipeInfo: RecipeSet }) => {
   try {
     const {
@@ -111,5 +124,9 @@ export const createNewRecipe = async ({ userInfo, recipeInfo }: { userInfo: User
 }
 
 export const createIngredient = async (query: string) => {
+  await pool.query(query)
+}
+
+export const createInstruction = async (query: string) => {
   await pool.query(query)
 }

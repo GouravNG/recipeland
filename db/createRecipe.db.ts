@@ -46,12 +46,13 @@ export const ingridientsQueryBuilder = (valueString: string) => {
   return query
 }
 
-export const instructionQueryBuilder = (stepNo: number, description: string, recipeId: string) => {
+export const instructionQueryBuilder = (valueString: string) => {
   //INSERT INTO Instruction (step_number, description, recipe_id)
   // VALUES
   // (1, 'Preheat the oven to 350°F (175°C).', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
   // (2, 'Mix the cream cheese and sugar until smooth.', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
-  const query = `INSERT INTO rs.Instruction (${stepNo},${description},${recipeId}) VALUES (${stepNo},${description},${recipeId})`
+  const query = `INSERT INTO rs.Instruction (step_number, description, recipe_id) VALUES ${valueString}`
+  console.log('hello i am your query', query)
   return query
 }
 

@@ -1,17 +1,19 @@
 'use server'
 
 import pool from '@/db/createPool.db'
-import { ingridientsQueryBuilder } from '@/db/createRecipe.db'
+import { ingridientsQueryBuilder, instructionQueryBuilder } from '@/db/createRecipe.db'
 import { createTableQuery } from '@/db/createTable.query'
 import { getCategoryIdByName } from '@/db/dbFn/categoryFunctions'
 import { getImageURL } from '@/db/dbFn/imageFunctions'
 import {
   createIngredient,
+  createInstruction,
   createNewRecipe,
   extractIngredientsInformation,
   extractInstructionInformation,
   extractRecifeInformation,
   valueSetForIngredient,
+  valueSetForInstruction,
 } from '@/db/dbFn/recipeFunction'
 import { getUserInfo } from '@/db/dbFn/userFunctions'
 import { UserSet } from '@/types/database.types'
@@ -68,11 +70,10 @@ export const addNewRecipeToDatabase = async (formData: FormData) => {
 
   //add te ingredients to the database
   createIngredient(ingridientsQueryBuilder(valueSetForIngredient(ingredientsSet, recipeId!)))
+
   //getting the instruction Information
   const instructionSet = extractInstructionInformation(formData)
 
-  //add the instruction to the database
-  instructionSet.map((step) => {
-    //entry to the database
-  })
+  //add the instructions to the database
+  createInstruction(instructionQueryBuilder(valueSetForInstruction(instructionSet, recipeId!)))
 }
