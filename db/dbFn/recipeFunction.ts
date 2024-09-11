@@ -1,6 +1,7 @@
 import { RecipeSet, UserSet } from '@/types/database.types'
 import pool from '../createPool.db'
-import { recipeQueryBuilder } from '../createRecipe.db'
+import { createNewRecipeQueryBuilder } from '../createRecipe.db'
+import { runQueryV2 } from '@/utils/runQuery'
 
 export const extractRecifeInformation = (
   formData: FormData,
@@ -8,14 +9,14 @@ export const extractRecifeInformation = (
   categoryId: string = 'addOtherCategoryIdHere'
 ) => {
   const recipeSet: RecipeSet = {
-    recipeName: formData.get('recipeName')?.toString()!,
-    recipeDescription: formData.get('imgDesc')?.toString()?.toString()!,
-    recipeServings: +formData.get('servings')!,
-    recipePrepTime: +formData.get('prep_time')!,
-    recipeCookTime: +formData.get('cook_time')!,
-    recipeMainImage: imgUrl,
-    recipeMainAlt: formData.get('mainImageAlt')?.toString()!,
-    recipeCategory_Id: categoryId,
+    name: formData.get('recipeName')?.toString()!,
+    description: formData.get('imgDesc')?.toString()?.toString(),
+    servings: +formData.get('servings')!,
+    prep_time: +formData.get('prep_time')!,
+    cook_time: +formData.get('cook_time')!,
+    main_img: imgUrl,
+    main_img_alt: formData.get('mainImageAlt')?.toString(),
+    category_id: categoryId,
   }
   return recipeSet
 }
@@ -88,39 +89,22 @@ export const valueSetForInstruction = (
 }
 
 export const createNewRecipe = async ({ userInfo, recipeInfo }: { userInfo: UserSet; recipeInfo: RecipeSet }) => {
-  try {
-    const {
-      recipeName,
-      recipeDescription,
-      recipeServings,
-      recipePrepTime,
-      recipeCookTime,
-      recipeMainImage,
-      recipeMainAlt,
-      recipeCategory_Id,
-    } = recipeInfo
+  const { name, description, preview, servings, prep_time, cook_time, main_img, main_img_alt, category_id } = recipeInfo
+  const { userId } = userInfo
 
-    const { userId } = userInfo
-    const res = await pool.query(
-      recipeQueryBuilder(
-        recipeName,
-        recipeDescription,
-        recipeServings,
-        recipePrepTime,
-        recipeCookTime,
-        recipeMainImage,
-        recipeMainAlt,
-        userId,
-        recipeCategory_Id
-      )
-    )
-    return '3f2d10f7-d1a9-4fac-99f3-73b0888d3811'
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log('Probelm in creating the recipe' + error.message)
-    }
-  } finally {
-  }
+  const res = await runQueryV2<{ id: string }>(createNewRecipeQueryBuilder(), [
+    name,
+    description ?? 'No description Provided',
+    preview ?? '',
+    servings,
+    prep_time,
+    cook_time,
+    main_img,
+    main_img_alt ?? 'Main image of the recipe',
+    userId,
+    category_id,
+  ])
+  return res
 }
 
 export const createIngredient = async (query: string) => {

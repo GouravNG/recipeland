@@ -15,43 +15,44 @@ import {
 } from '@/db/dbFn/recipeFunction'
 import { getUserInfo } from '@/db/dbFn/userFunctions'
 import { UserSet } from '@/types/database.types'
+import { errorlogger } from '@/utils/logger'
 import { runQueryV2 } from '@/utils/runQuery'
 
 export const adminCustomQuery = async (formData: FormData) => {
   try {
     const response = await runQueryV2<any>(formData.get('myQuery')?.toString()!)
     if (response.status === 'fail') throw new Error(response.errorResponse)
-    console.log(response.queryResponse)
+    console.log(JSON.stringify(response.queryResponse))
   } catch (e) {
     console.error(e)
   }
 }
 
 export const addNewRecipeToDatabase = async (formData: FormData) => {
-  // Getting the username
-  const userSet: UserSet = getUserInfo(`userIdGoesHere`)
+  try {
+    const userSet: UserSet = getUserInfo(`userIdGoesHere`)
 
-  // Getting the category Informations
-  const categoryId = getCategoryIdByName(formData.get('subCategoryName')?.toString()!)
+    const categoryId = getCategoryIdByName(formData.get('subCategoryName')?.toString()!)
 
-  //Getting the image Informations
-  const imgUrl = getImageURL(`imgFromFormDataGoesHere`)
+    const imgUrl = getImageURL(`imgFromFormDataGoesHere`)
 
-  //getting the recipeinformations
-  const recipeSet = extractRecifeInformation(formData, imgUrl, categoryId)
+    const recipeSet = extractRecifeInformation(formData, imgUrl, categoryId)
 
-  //create the newRecipe and return the id of recipe created
-  const recipeId = await createNewRecipe({ userInfo: userSet, recipeInfo: recipeSet })
+    const qRes = await createNewRecipe({ userInfo: userSet, recipeInfo: recipeSet })
+    if (qRes.status === 'fail') throw new Error(qRes.errorResponse)
 
-  //getting the ingredients informations
-  const ingredientsSet = extractIngredientsInformation(formData)
+    const recipeId = qRes.queryResponse[0].id
+    console.log(recipeId)
 
-  //add te ingredients to the database
-  createIngredient(ingridientsQueryBuilder(valueSetForIngredient(ingredientsSet, recipeId!)))
+    const ingredientsSet = extractIngredientsInformation(formData)
 
-  //getting the instruction Information
-  const instructionSet = extractInstructionInformation(formData)
+    createIngredient(ingridientsQueryBuilder(valueSetForIngredient(ingredientsSet, recipeId!)))
 
-  //add the instructions to the database
-  createInstruction(instructionQueryBuilder(valueSetForInstruction(instructionSet, recipeId!)))
+    const instructionSet = extractInstructionInformation(formData)
+
+    createInstruction(instructionQueryBuilder(valueSetForInstruction(instructionSet, recipeId!)))
+  } catch (e) {
+    if (e instanceof Error) errorlogger(e)
+    else console.error(e)
+  }
 }

@@ -15,25 +15,8 @@ export const subCategoryQueryBuilder = (subCateg: string, parentId: string, desc
   return query
 }
 
-export const recipeQueryBuilder = (
-  name: string,
-  description: string,
-  servings: number,
-  prepTime: number,
-  cookTime: number,
-  mainImg: string,
-  mainImgAlt: string,
-  userId: string,
-  categoryId: string
-) => {
-  // INSERT INTO Recipe (name, description, servings, prep_time, cook_time, main_img, main_img_alt, created_at, updated_at, user_id, category_id)
-  // VALUES ('Cheesecake','A delicious and creamy cheesecake.',8,30,60,'/cheese.jpg','A slice of cheesecake',NOW(),NOW(),(SELECT id FROM User WHERE username = 'john_doe'),(SELECT id FROM Category WHERE name = 'Desserts'));
-  mainImg = '/cheese.jpg'
-  const query = `INSERT INTO rs.Recipe
-    (name, description, servings, prep_time, cook_time, main_img, main_img_alt, user_id, category_id) VALUES (
-    '${name}','${description}',${servings},${prepTime},${cookTime},'${mainImg}','${mainImgAlt}','${userId}','${categoryId}')`
-  console.log(query)
-  return query
+export const createNewRecipeQueryBuilder = () => {
+  return `INSERT INTO rs.Recipe (name, description,preview, servings, prep_time, cook_time, main_img, main_img_alt, user_id, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`
 }
 
 export const ingridientsQueryBuilder = (valueString: string) => {
