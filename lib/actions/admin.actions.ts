@@ -1,8 +1,6 @@
 'use server'
 
-import pool from '@/db/createPool.db'
 import { ingridientsQueryBuilder, instructionQueryBuilder } from '@/db/createRecipe.db'
-import { createTableQuery } from '@/db/createTable.query'
 import { getCategoryIdByName } from '@/db/dbFn/categoryFunctions'
 import { getImageURL } from '@/db/dbFn/imageFunctions'
 import {
@@ -17,36 +15,16 @@ import {
 } from '@/db/dbFn/recipeFunction'
 import { getUserInfo } from '@/db/dbFn/userFunctions'
 import { UserSet } from '@/types/database.types'
-import { createTimeout } from '@/utils/useTimeout'
+import { runQueryV2 } from '@/utils/runQuery'
 
-export const pingDatabase = async () => {
+export const adminCustomQuery = async (formData: FormData) => {
   try {
-    const res = await pool.query('SELECT 1')
-    if (res.rowCount && res?.rowCount > 0) return
-  } catch (error) {
-    if (error instanceof Error) throw new Error('Database Connection Failed,: ' + error.message)
-    throw new Error('Random unknow Error')
+    const response = await runQueryV2<any>(formData.get('myQuery')?.toString()!)
+    if (response.status === 'fail') throw new Error(response.errorResponse)
+    console.log(response.queryResponse)
+  } catch (e) {
+    console.error(e)
   }
-}
-
-export const runQuery = async (formData: FormData) => {
-  try {
-    await createTimeout(pingDatabase, +process.env.TIMEOUT_MS!)
-    const myQuery = formData.get('myQuery') as string
-    console.log('Query is', myQuery)
-    const queryResponse = await pool.query(myQuery)
-    console.log('Query Response is ', JSON.stringify(queryResponse.rows))
-  } catch (error) {
-    if (error instanceof Error) console.log(error.message)
-    else console.log('Unknown Error Occurred')
-  }
-}
-
-export const createTables = () => {
-  createTableQuery.map(async (query) => {
-    const queryRespose = await pool.query(query)
-    console.log(queryRespose.command)
-  })
 }
 
 export const addNewRecipeToDatabase = async (formData: FormData) => {
