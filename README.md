@@ -5,7 +5,7 @@
   - Nextjs with app router
   - Tailwind
 - Backend:
-    - Postgres with server actions
+    - Supabase
  ### Todos:
  - ✔️ UI layout is completed with dummy data
  - ✔️ Code refactoring is Complete
