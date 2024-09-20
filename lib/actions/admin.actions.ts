@@ -1,56 +1,34 @@
 'use server'
-
-import { ingridientsQueryBuilder, instructionQueryBuilder } from '@/db/createRecipe.db'
 import { getCategoryIdByName } from '@/db/dbFn/categoryFunctions'
 import { getImageURL } from '@/db/dbFn/imageFunctions'
-import {
-  createIngredient,
-  createInstruction,
-  createNewRecipe,
-  extractIngredientsInformation,
-  extractInstructionInformation,
-  extractRecifeInformation,
-  valueSetForIngredient,
-  valueSetForInstruction,
-} from '@/db/dbFn/recipeFunction'
 import { getUserInfo } from '@/db/dbFn/userFunctions'
-import { UserSet } from '@/types/database.types'
+import { makePostRequest } from '@/utils/HttpRequests'
 import { errorlogger } from '@/utils/logger'
-import { runQueryV2 } from '@/utils/runQuery'
-
-export const adminCustomQuery = async (formData: FormData) => {
-  try {
-    const response = await runQueryV2<any>(formData.get('myQuery')?.toString()!)
-    if (response.status === 'fail') throw new Error(response.errorResponse)
-    console.log(JSON.stringify(response.queryResponse))
-  } catch (e) {
-    console.error(e)
-  }
-}
+import { createIngredient1, createInstruction1, extractRecifeInformation } from '@/db/dbFn/recipeFunction'
 
 export const addNewRecipeToDatabase = async (formData: FormData) => {
   try {
-    const userSet: UserSet = getUserInfo(`userIdGoesHere`)
+    const userid = getUserInfo()
 
     const categoryId = getCategoryIdByName(formData.get('subCategoryName')?.toString()!)
 
     const imgUrl = getImageURL(`imgFromFormDataGoesHere`)
 
-    const recipeSet = extractRecifeInformation(formData, imgUrl, categoryId)
+    const recipeSet = extractRecifeInformation(formData)
 
-    const qRes = await createNewRecipe({ userInfo: userSet, recipeInfo: recipeSet })
-    if (qRes.status === 'fail') throw new Error(qRes.errorResponse)
+    const createRecipeSp = await makePostRequest('/rest/v1/recipe', {
+      ...recipeSet,
+      main_img: imgUrl,
+      category_id: categoryId,
+      user_id: userid,
+    })
 
-    const recipeId = qRes.queryResponse[0].id
-    console.log(recipeId)
-
-    const ingredientsSet = extractIngredientsInformation(formData)
-
-    createIngredient(ingridientsQueryBuilder(valueSetForIngredient(ingredientsSet, recipeId!)))
-
-    const instructionSet = extractInstructionInformation(formData)
-
-    createInstruction(instructionQueryBuilder(valueSetForInstruction(instructionSet, recipeId!)))
+    const recipeId = createRecipeSp[0].id
+    if (recipeId) {
+      await Promise.all([createIngredient1(recipeId, formData), createInstruction1(recipeId, formData)])
+    } else {
+      throw new Error('Recipe Id not found !!')
+    }
   } catch (e) {
     if (e instanceof Error) errorlogger(e)
     else console.error(e)

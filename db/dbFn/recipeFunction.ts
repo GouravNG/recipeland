@@ -1,27 +1,19 @@
-import { RecipeSet, UserSet } from '@/types/database.types'
-import pool from '../createPool.db'
-import { createNewRecipeQueryBuilder } from '../createRecipe.db'
-import { runQueryV2 } from '@/utils/runQuery'
+import { RecipeSet } from '@/types/database.types'
+import { makePostRequest } from '@/utils/HttpRequests'
 
-export const extractRecifeInformation = (
-  formData: FormData,
-  imgUrl: string = '/cheese.jpg',
-  categoryId: string = 'addOtherCategoryIdHere'
-) => {
-  const recipeSet: RecipeSet = {
+export const extractRecifeInformation = (formData: FormData) => {
+  const recipeSet: Partial<RecipeSet> = {
     name: formData.get('recipeName')?.toString()!,
     description: formData.get('imgDesc')?.toString()?.toString(),
     servings: +formData.get('servings')!,
     prep_time: +formData.get('prep_time')!,
     cook_time: +formData.get('cook_time')!,
-    main_img: imgUrl,
     main_img_alt: formData.get('mainImageAlt')?.toString(),
-    category_id: categoryId,
   }
   return recipeSet
 }
 
-export const extractIngredientsInformation = (formData: FormData) => {
+export const extractIngredientsInformation = (formData: FormData, recipeId: string) => {
   //extracting the required part
   const ingred = /_\d+$/
   const tempIngredient: string[] = []
@@ -32,20 +24,24 @@ export const extractIngredientsInformation = (formData: FormData) => {
   })
 
   //modifing the required part
-  const ingredientsSet: { ingredientName: string; measurementName: string; quantity: string }[] = []
+  const ingredientsSet: { name: string; quantity: string; recipe_id: string }[] = []
   for (let j = 0; j < tempIngredient.length; j = j + 3) {
     ingredientsSet.push({
-      ingredientName: formData.get(tempIngredient[j]) as string,
-      measurementName: formData.get(tempIngredient[j + 1]) as string,
-      quantity: formData.get(tempIngredient[j + 2]) as string,
+      name: formData.get(tempIngredient[j])?.toString()!,
+      quantity:
+        formData
+          .get(tempIngredient[j + 2])
+          ?.toString()!
+          .concat(formData.get(tempIngredient[j + 1])?.toString()!) ?? '',
+      recipe_id: recipeId,
     })
   }
   return ingredientsSet
 }
 
-export const extractInstructionInformation = (formData: FormData) => {
+export const extractInstructionInformation = (formData: FormData, recipe_id: string) => {
   //extracting the required part
-  const instructionSet: { stepNo: number; stepDesc: string }[] = []
+  const instructionSet: { step_number: number; description: string; recipe_id: string }[] = []
   const instructRegex = /-\d+$/
   const tempInstruction: string[] = []
   Array.from(formData.keys()).map((key) => {
@@ -56,61 +52,21 @@ export const extractInstructionInformation = (formData: FormData) => {
 
   //modifying the required part
   for (let j = 0; j < tempInstruction.length; j++) {
-    instructionSet.push({ stepNo: j, stepDesc: formData.get(tempInstruction[j]) as string })
+    instructionSet.push({
+      step_number: j,
+      description: formData.get(tempInstruction[j])?.toString() ?? '',
+      recipe_id: recipe_id,
+    })
   }
   return instructionSet
 }
 
-export const valueSetForIngredient = (
-  ingredientsSet: ReturnType<typeof extractIngredientsInformation>,
-  recipeId: string
-) => {
-  //entiry to the database
-  // ('Cream Cheese', '2 cups', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
-  // ('Sugar', '1 cup', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
-  const valueSet: string[] = []
-  ingredientsSet.map((i) => {
-    return valueSet.push(`('${i.ingredientName}','${i.quantity}${i.measurementName}','${recipeId}')`)
-  })
-  return valueSet.toString()
+export const createIngredient1 = async (recipeid: string, formData: FormData) => {
+  const body = extractIngredientsInformation(formData, recipeid)
+  return await makePostRequest('/rest/v1/ingredient', body)
 }
 
-export const valueSetForInstruction = (
-  instructionSet: ReturnType<typeof extractInstructionInformation>,
-  recipeId: string
-) => {
-  // (1, 'Preheat the oven to 350°F (175°C).', (SELECT id FROM Recipe WHERE title = 'Cheesecake')),
-  // (2, 'Mix the cream cheese and sugar until smooth.', (SELECT id FROM Recipe WHERE title = 'Cheesecake')
-  const valueSet: string[] = []
-  instructionSet.map((i) => {
-    return valueSet.push(`('${i.stepNo}','${i.stepDesc}','${recipeId}')`)
-  })
-  return valueSet.toString()
-}
-
-export const createNewRecipe = async ({ userInfo, recipeInfo }: { userInfo: UserSet; recipeInfo: RecipeSet }) => {
-  const { name, description, preview, servings, prep_time, cook_time, main_img, main_img_alt, category_id } = recipeInfo
-  const { userId } = userInfo
-
-  const res = await runQueryV2<{ id: string }>(createNewRecipeQueryBuilder(), [
-    name,
-    description ?? 'No description Provided',
-    preview ?? '',
-    servings,
-    prep_time,
-    cook_time,
-    main_img,
-    main_img_alt ?? 'Main image of the recipe',
-    userId,
-    category_id,
-  ])
-  return res
-}
-
-export const createIngredient = async (query: string) => {
-  await pool.query(query)
-}
-
-export const createInstruction = async (query: string) => {
-  await pool.query(query)
+export const createInstruction1 = async (recipeid: string, formData: FormData) => {
+  const body = extractInstructionInformation(formData, recipeid)
+  return await makePostRequest('/rest/v1/instruction', body)
 }

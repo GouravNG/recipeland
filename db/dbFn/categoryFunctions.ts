@@ -1,3 +1,3 @@
 export const getCategoryIdByName = (categoryName: string) => {
-  return '835f5b44-6d82-4312-9162-b5837d3b5d64' //hardcoded need to fix
+  return 'a0af3249-545c-4df9-a488-5279f444bf6f' //hardcoded need to fix
 }
