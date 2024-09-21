@@ -1,3 +1,4 @@
+import { postIngredientsURL, postInstructionURL } from '@/api/recipe.api'
 import { RecipeSet } from '@/types/database.types'
 import { makePostRequest } from '@/utils/HttpRequests'
 
@@ -63,10 +64,10 @@ export const extractInstructionInformation = (formData: FormData, recipe_id: str
 
 export const createIngredient1 = async (recipeid: string, formData: FormData) => {
   const body = extractIngredientsInformation(formData, recipeid)
-  return await makePostRequest('/rest/v1/ingredient', body)
+  return await makePostRequest(postIngredientsURL, body)
 }
 
 export const createInstruction1 = async (recipeid: string, formData: FormData) => {
   const body = extractInstructionInformation(formData, recipeid)
-  return await makePostRequest('/rest/v1/instruction', body)
+  return await makePostRequest(postInstructionURL, body)
 }

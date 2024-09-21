@@ -1,0 +1,5 @@
+const env = process.env.DOMAIN
+
+export const postRecipeURL = `${env}/rest/v1/recipe`
+export const postInstructionURL = `${env}/rest/v1/instruction`
+export const postIngredientsURL = `${env}/rest/v1/ingredient`
