@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/header'
 import { quickSand } from '@/utils/fonts'
 import Footer from '@/components/footer'
+import { ReactQuery } from '@/utils/useReactQuery'
 
 export const metadata: Metadata = {
   title: 'RecipeLand',
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={quickSand.className}>
-        <Header />
-        {children}
-        <Footer />
+        <ReactQuery>
+          <Header />
+          {children}
+          <Footer />
+        </ReactQuery>
       </body>
     </html>
   )
