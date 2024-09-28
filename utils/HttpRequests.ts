@@ -1,5 +1,13 @@
 import { handleHTTPError } from './httpErrorHandler.utils'
 
+const constructURLparams = (...params: { key: string; value: string }[]) => {
+  let paramsPart = ''
+  params.map((i) => {
+    paramsPart += `${i.key}=${i.value}&`
+  })
+  return paramsPart
+}
+
 export const makePostRequest = async (URL: string, body: any) => {
   try {
     const pRes = await fetch(`${URL}`, {
@@ -21,9 +29,12 @@ export const makePostRequest = async (URL: string, body: any) => {
   }
 }
 
-export const makeGetRequest = async (URL: string) => {
+export const makeGetRequest = async (URL: string, ...params: { key: string; value: string }[]) => {
   try {
-    const gRes = await fetch(`${URL}?apikey=${process.env.SUPABASE_ANON_KEY}`)
+    let getURL = `${URL}?apikey=${process.env.SUPABASE_ANON_KEY}&`
+    let paramsPart = params.length ? constructURLparams(...params) : ''
+    getURL += paramsPart
+    const gRes = await fetch(getURL)
     if (!gRes.ok) throw new Error(JSON.stringify(handleHTTPError(gRes)))
     const data = gRes.json()
     return await data

@@ -13,8 +13,8 @@ const RDPHeader: React.FC<RDPHeaderProps> = ({ RDPInfo }) => {
     <>
       <div className='flex p-4 py-8 items-center justify-around'>
         <div className='flex flex-col gap-3 p-4 items-center'>
-          <h1 className={`${IBM_Flex.className} text-6xl p-4`}>{RDPInfo.recipeName}</h1>
-          <p>{RDPInfo.recipeDescription}</p>
+          <h1 className={`${IBM_Flex.className} text-6xl p-4`}>{RDPInfo.recipename}</h1>
+          <p>{RDPInfo.recipedescription}</p>
           <h3 className='text-slate-600 '>By {`Gourav Gunaga`}</h3>
           <h5 className='text-slate-400'>{`August 17,2024`}</h5>
           <div className='flex gap-2'>

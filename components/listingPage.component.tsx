@@ -1,9 +1,14 @@
 import { RecipeInfo } from '@/types/common.type'
 import RecipeContainer2 from './ui/recipeContainer2.component'
-import { getAllRecipes } from '@/dummyData/getAllRecipe'
+import { makeGetRequest } from '@/utils/HttpRequests'
+import { getAllRecipesByCategoryNameURL } from '@/api/recipe.api'
 
-const RecipeListComponent: React.FC = () => {
-  const recipeInfoArray = getAllRecipes
+type RecipeListComponentTypes = {
+  data: RecipeInfo[]
+}
+
+const RecipeListComponent: React.FC<RecipeListComponentTypes> = async ({ data }) => {
+  const recipeInfoArray: RecipeInfo[] = data
   return (
     <>
       <div className='flex flex-wrap gap-6 justify-around'>

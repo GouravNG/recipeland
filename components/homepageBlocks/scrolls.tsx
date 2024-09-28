@@ -1,11 +1,12 @@
 import { IBM_Flex } from '@/utils/fonts'
 import RecipeContainer from '../ui/recipeContainer.component'
 import { MoveRightIcon } from 'lucide-react'
-import { getAllRecipes } from '@/dummyData/getAllRecipe'
 import { RecipeInfo } from '@/types/common.type'
+import { makeGetRequest } from '@/utils/HttpRequests'
+import { getAllRecipesURL } from '@/api/recipe.api'
 
-const Scroll = () => {
-  const recipesData: RecipeInfo[] = getAllRecipes
+const Scroll = async () => {
+  const recipesData: RecipeInfo[] = await makeGetRequest(getAllRecipesURL)
   return (
     <>
       <div className='flex items-center p-4'>

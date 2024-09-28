@@ -13,20 +13,20 @@ export type ButtonType = {
 }
 
 export type RecipeInfo = {
-  recipeName: string
-  recipeMainImage: string
-  recipeMainImageAlt: string
-  recipeCategory: string
-  recipeDescription: string
-  recipeRating: number
+  recipename: string
+  recipemainimage: string
+  recipemainimagealt: string
+  recipecategory: string
+  recipedescription: string
+  reciperating: number
 }
 
 export type RecipeDetails = {
-  recipeName: string
-  recipeMainImage: string
-  recipeCategory: string
-  recipeDescription: string
-  recipeIngredients: string[]
-  recipeMethod: string[]
-  recipeSubImages: string[]
+  recipename: string
+  recipemainimage: string
+  recipecategory: string
+  recipedescription: string
+  recipeingredients: string[]
+  recipemethod: string[]
+  recipesubimages: string[]
 }

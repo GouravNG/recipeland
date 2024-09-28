@@ -3,29 +3,26 @@ import { MoveRightIcon } from 'lucide-react'
 import Image from 'next/image'
 import RecipeContainer from '../ui/recipeContainer.component'
 import { RecipeInfo } from '@/types/common.type'
-import { getAllRecipes } from '@/dummyData/getAllRecipe'
 import QuoteComponent from '../quote.component'
+import { makeGetRequest } from '@/utils/HttpRequests'
+import { getFeaturedRecipesURL } from '@/api/recipe.api'
 
-export const ItemAndFeatured = () => {
-  const FeaturingData: RecipeInfo[] = []
-  FeaturingData.push(getAllRecipes[0])
-  FeaturingData.push(getAllRecipes[1])
-  FeaturingData.push(getAllRecipes[2])
-
+export const ItemAndFeatured = async () => {
+  const FeaturingData: RecipeInfo[] = await makeGetRequest(getFeaturedRecipesURL)
   return (
     <>
       <div className='flex p-4 m-2 justify-evenly gap-4'>
         <div className='relative border p-2 bg-slate-700 flex items-end justify-center'>
           <Image
-            src={FeaturingData[0]?.recipeMainImage}
-            alt={FeaturingData[0]?.recipeMainImageAlt}
+            src={FeaturingData[0]?.recipemainimage}
+            alt={FeaturingData[0]?.recipemainimagealt}
             height={500}
             width={600}
           />
           <div className='absolute flex flex-col items-center bg-slate-100 m-10 mx-20 p-5 px-10 gap-2 opacity-75 border-4 border-yellow-400'>
-            <p className='font-bold text-md text-red-500'>Easy {FeaturingData[0]?.recipeCategory}</p>
-            <h1 className={`${IBM_Flex.className} antialiased text-5xl text-center`}>{FeaturingData[0]?.recipeName}</h1>
-            <p className='italic'>{FeaturingData[0]?.recipeDescription}</p>
+            <p className='font-bold text-md text-red-500'>Easy {FeaturingData[0]?.recipecategory}</p>
+            <h1 className={`${IBM_Flex.className} antialiased text-5xl text-center`}>{FeaturingData[0]?.recipename}</h1>
+            <p className='italic'>{FeaturingData[0]?.recipecategory}</p>
           </div>
         </div>
         <div className='flex flex-col justify-center items-center gap-10 '>

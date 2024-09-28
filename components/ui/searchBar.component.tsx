@@ -5,9 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 const SearchBar: React.FC = () => {
   const searchParam = useSearchParams()
   const { replace } = useRouter()
+  const searchURL = new URLSearchParams(searchParam)
 
   const handleSearch = (term: string) => {
-    const searchURL = new URLSearchParams(searchParam)
     term ? searchURL.set('query', term) : searchURL.delete('query')
     replace(`/search?${searchURL.toString()}`)
   }

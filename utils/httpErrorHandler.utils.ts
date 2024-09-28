@@ -6,6 +6,6 @@ const createResponse = (code: number, message: string) => {
 }
 
 export const handleHTTPError = (res: Response) => {
-  console.log(res)
+  // console.log(res)
   return createResponse(0, '')
 }
