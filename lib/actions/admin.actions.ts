@@ -7,6 +7,8 @@ import { errorlogger } from '@/utils/logger'
 import { createIngredient1, createInstruction1, extractRecifeInformation } from '@/db/dbFn/recipeFunction'
 import { postRecipeURL } from '@/api/recipe.api'
 
+export const adminCustomQuery = () => {}
+
 export const addNewRecipeToDatabase = async (formData: FormData) => {
   try {
     const [userid, categoryId, imgUrl, recipeSet] = await Promise.all([
