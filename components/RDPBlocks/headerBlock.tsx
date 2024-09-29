@@ -22,7 +22,7 @@ const RDPHeader: React.FC<RDPHeaderProps> = ({ RDPInfo }) => {
           </div>
         </div>
         <div>
-          <Image src='/cheese.jpg' height={300} width={600} alt='Cheese cake' />
+          <Image src={RDPInfo.recipemainimage} height={300} width={600} alt='Cheese cake' />
         </div>
       </div>
     </>
