@@ -41,6 +41,7 @@ export const dailyQuotes: string[] = [
 ]
 
 export const BannerImageLink_HomePage: { imgLink: string; altText: string } = {
-  imgLink: '/banner2.jpg',
+  imgLink:
+    'https://skysonczwzlppjhpgude.supabase.co/storage/v1/object/sign/Recipe-Images/banner2.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJSZWNpcGUtSW1hZ2VzL2Jhbm5lcjIuanBnIiwiaWF0IjoxNzI3NTMzMDE3LCJleHAiOjE3NTkwNjkwMTd9.CeCXr6_Ebvff2IpkGDNocv5TPC24Ny9moQzpbiyyCyk&t=2024-09-28T14%3A16%3A57.254Z',
   altText: '3 womens making food',
 }

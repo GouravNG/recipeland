@@ -4,6 +4,9 @@ const nextConfig = {
     experimental: {
         missingSuspenseWithCSRBailout: false,
     },
+    images: {
+        domains: ['skysonczwzlppjhpgude.supabase.co'], // Add the domains here
+    },
 };
 
 export default nextConfig;
