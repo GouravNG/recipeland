@@ -11,7 +11,7 @@ export const ItemAndFeatured = async () => {
   const FeaturingData: RecipeInfo[] = await makeGetRequest(getFeaturedRecipesURL)
   return (
     <>
-      <div className='flex p-4 m-2 justify-evenly gap-4'>
+      <div className='flex flex-col md:flex-row p-4 m-2 justify-evenly gap-4'>
         <div className='relative border p-2 bg-slate-700 flex items-end justify-center'>
           <Image
             src={FeaturingData[0]?.recipemainimage}
@@ -27,13 +27,13 @@ export const ItemAndFeatured = async () => {
         </div>
         <div className='flex flex-col justify-center items-center gap-10 '>
           <QuoteComponent />
-          <div className='flex items-start '>
+          <div className=' hidden md:flex md:items-start  '>
             <div className='flex flex-col p-2 gap-2'>
               <div className='flex gap-2 items-center'>
                 <h1 className={`${IBM_Flex.className} subHeadingStyle underLineDecoration`}>Trending Recipes</h1>
                 <MoveRightIcon />
               </div>
-              <div className='flex py-3 gap-20 items-center'>
+              <div className='hidden md:flex py-3 gap-20 items-center'>
                 {FeaturingData.slice(1, 3).map((i, index) => {
                   return <RecipeContainer recipeInfo={i} key={index} />
                 })}

@@ -21,7 +21,7 @@ const DropDown: React.FC = async () => {
   //TODO: handling the error, timeout , and data issue.
   return (
     <>
-      <div className='flex gap-3 p-2 '>
+      <div className='hidden md:flex gap-3 p-2 '>
         {dropDonwData.map((MC, index) => {
           return (
             <div className='relative flex flex-col p-2 group z-10 ' key={MC.parent_id}>
