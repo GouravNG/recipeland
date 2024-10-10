@@ -22,7 +22,7 @@ const DropDown: React.FC = async () => {
   return (
     <>
       <div className='flex gap-3 p-2 '>
-        {dropDonwData.map((MC, index) => {
+        {dropDonwData?.map((MC, index) => {
           return (
             <div className='relative flex flex-col p-2 group z-10 ' key={MC.parent_id}>
               <h6 className={`font-serif underLineDecoration flex items-center justify-center`}>
