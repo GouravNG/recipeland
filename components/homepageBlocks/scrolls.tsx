@@ -9,8 +9,8 @@ const Scroll = async () => {
   const recipesData: RecipeInfo[] = await makeGetRequest(getAllRecipesURL)
   return (
     <>
-      <div className='flex items-center p-4'>
-        <h3 className={`${IBM_Flex.className} p-2 subHeadingStyle underLineDecoration`}>Explre our recipes</h3>
+      <div className='flex items-center md:p-4 pb-4'>
+        <h3 className={`${IBM_Flex.className} md:p-2 subHeadingStyle underLineDecoration`}>Explre our recipes</h3>
         <MoveRightIcon />
       </div>
       <div className='bg-slate-300 flex gap-8 p-4 py-8 overflow-x-auto overflow-y-hidden whitespace-nowrap'>
